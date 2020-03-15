@@ -9,7 +9,8 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>customizedtransaction</module>
+        <module>ch01-customized-transaction-xml</module>
+        <module>ch02-customized-transaction-annotation</module>
     </modules>
 
 

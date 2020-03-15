@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--声明配置文件-->
+    <context:property-placeholder location="classpath:application.yml"/>
+
+    <bean id="transactionManager" class="com.springlearning.utils.TransactionManager">
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <bean id="connectionUtils" class="com.springlearning.utils.ConnectionUtils">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="accountService" class="com.springlearning.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+
+    <bean id="accountDao" class="com.springlearning.dao.impl.AccountDaoImpl">
+        <!--<property name="jdbcTemplate" ref="jdbcTemplate"></property>-->
+        <!--<property name="dataSource" ref="dataSource"></property>-->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<property name="dataSource" ref="connectionUtils"></property>-->
+    <!--</bean>-->
+
+    <!--配置文件的使用-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${driverClassName}"></property>
+        <property name="url" value="${url}"></property>
+        <property name="username" value="${spring.datasource.username}"></property>
+        <property name="password" value="${spring.datasource.password}"></property>
+    </bean>
+    
+    <aop:config>
+        <aop:pointcut id="pt1" expression="execution(* *.*.*.*.AccountServiceImpl.*(..))"></aop:pointcut>
+        <aop:aspect id="accountService" ref="transactionManager">
+            <!--配置前置通知，开启事务-->
+            <aop:before method="begainTransaction" pointcut-ref="pt1"></aop:before>
+            <!--配置后置通知，提交事务-->
+            <aop:after-returning method="commitTransaction" pointcut-ref="pt1"></aop:after-returning>
+            <!--配置异常通知，回滚事务-->
+            <aop:after-throwing method="rollback" pointcut-ref="pt1"></aop:after-throwing>
+            <!--配置最终通知，释放连接-->
+            <aop:after method="close" pointcut-ref="pt1"></aop:after>
+        </aop:aspect>
+    </aop:config>
+</beans>

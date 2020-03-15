@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ch01-customized-transaction-xml</artifactId>
-
+    <artifactId>ch03-spring-transaction-xml</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -46,6 +45,13 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.1</version>
+        </dependency>
+
+        <!--spring 事务管理-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.0.7.RELEASE</version>
         </dependency>
     </dependencies>
 

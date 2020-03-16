@@ -12,6 +12,7 @@
         <module>ch01-customized-transaction-xml</module>
         <module>ch02-customized-transaction-annotation</module>
         <module>ch03-spring-transaction-xml</module>
+        <module>ch04-spring-transaction-annotation</module>
     </modules>
 
 

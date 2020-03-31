@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+       <bean id="account" class="com.springlearning.entity.Account" init-method="myInit" destroy-method="myDestory">
+           <property name="id" value="1"></property>
+           <property name="name" value="Vivi"></property>
+           <property name="money" value="100f"></property>
+       </bean>
+
+    <bean id="myBeanPostProcessor" class="com.springlearning.postprocessor.MyBeanPostProcessor"></bean>
+
+    <bean id="accountServiceImpl" class="com.springlearning.service.impl.AccountServiceImpl"></bean>
+
+    <bean id="myInstantiationAwareBeanPostProcessorAdapter" class="com.springlearning.postprocessor.MyInstantiationAwareBeanPostProcessorAdapter"></bean>
+
+    <bean id="myBeanFactoryPostProcessor" class="com.springlearning.postprocessor.MyBeanFactoryPostProcessor"></bean>
+</beans>

@@ -8,7 +8,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
-@PropertySource("classpath:application.yml")
+
 public class DBConfiguration {
 
     @Value("${driverClassName}")
